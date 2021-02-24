@@ -222,5 +222,6 @@ The middleware inside this repository can handle the translation back to a norma
 It is important to add this middleware above the trimStrings middleware.
 
 
-### Full example
-- not here yet
+### Example
+
+Check the example folder for a Vue component example
