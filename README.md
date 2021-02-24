@@ -85,7 +85,7 @@ True if:
 - At least one value has changes (handy if it is an edit form)
 
 ```vue
-<button @click="submit()" :disabled="vueForm.isResetAvailable()">Reset</button>
+<button @click="resetFormdata()" :disabled="vueForm.isResetAvailable()">Reset</button>
 ```
 
 If you also like to check if the field 
