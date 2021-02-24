@@ -57,7 +57,7 @@ You can send your form like this. You can also use delete, patch, put or even ge
 
 There are several functions you can use to block different parts of the form by different states. For example the function 'isSaveAvailable()' gives 'true' if the form is not doing a request, got at least one value changes and does not have unsolved validation errors.
 
-######isSaveAvailable()
+### isSaveAvailable()
 
 True if:
 - Not doing a request
@@ -68,7 +68,7 @@ True if:
 <button @click="submit()" :disabled="!vueForm.isSaveAvailable()">Submit</button>
 ```
 
-######isBusy()
+### isBusy()
 
 True if the form is doing a request. The form can handle multiple requests at once.
 
@@ -76,7 +76,7 @@ True if the form is doing a request. The form can handle multiple requests at on
 <div v-if="vueForm.isBusy()">Wait a second please.</div>
 ```
 
-######isResetAvailable()
+### isResetAvailable()
 
 This function is mostly used for on the reset button. It is the same function as 'isSaveAvailable()' only without checkin on validation errors. 
 
@@ -90,7 +90,7 @@ True if:
 
 If you also like to check if the field 
 
-######isChanged()
+### isChanged()
 
 The function 'isChanged()' gives true if one of the values is different from the original values.
 
@@ -162,11 +162,11 @@ The function 'resetFormdata()' resets the formdata with the original formData. I
 
 ## Additional knowledge
 
-###### Data transformation
+###  Data transformation
 
 The form automatically filters undefined and null values. Date objects will be converted to date stings. This is done without converting with ISO timestamps to prevent timezone issues
 
-###### Populate after request
+###  Populate after request
 
 You can automatically populate the form after a request by giving a data object back.
 
@@ -181,7 +181,7 @@ In your Laravel controller:
 
 It is also possible to use the 'get()' function to the form to load a form with data.
 
-###### Global message
+###  Global message
 
 If you would like to render the Laravel http message as global error message you can do something like this:
 
@@ -191,7 +191,7 @@ If you would like to render the Laravel http message as global error message you
 </div>
 ```
 
-###### Send a Json
+###  Send a Json
 
 When using booleans and null values you need to send the post data as Json object. This is a feature of the vueFrom class that can be activate by giving true as second initialize parameter.
 
