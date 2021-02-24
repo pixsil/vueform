@@ -2,13 +2,13 @@
 
 ## Features
 
-* The form is made so it can handle files by default
 * Send your forms easy with ajax
-* No need to use old html forms
-* Supports POST, PUT, DELETE, PATCH and UPDATE
-* Support for sending data as object whats making sending null and bolean values possible
-* Functions to make buttons or form unavailable when the form is busy or has an error
 * Uses Laravel backend validation so no need to add frontend validation anymore
+* Does not use the old way of html forms
+* Supports POST, PUT, DELETE, PATCH and UPDATE
+* Always send the form with multipart/form-data so easy to add files 
+* Support for sending data as JSON object whats making sending null and bolean values possible
+* A lot of functions for validation, rendering and data transformations
 
 ## Donate
 
@@ -53,11 +53,11 @@ You can send your form like this. You can also use delete, patch, put or even ge
     },
 ```
 
-### Form
+## Render functions
 
 There are several functions you can use to block different parts of the form by different states. For example the function 'isSaveAvailable()' gives 'true' if the form is not doing a request, got at least one value changes and does not have unsolved validation errors.
 
-***isSaveAvailable()***
+###isSaveAvailable()
 
 True if:
 - Not doing a request
@@ -65,10 +65,10 @@ True if:
 - At least one value has changes (handy if it is an edit form)
 
 ```vue
-<button @click="submit()" :disabled="vueForm.isSaveAvailable()">Submit</button>
+<button @click="submit()" :disabled="!vueForm.isSaveAvailable()">Submit</button>
 ```
 
-***isBusy()***
+###isBusy()
 
 True if the form is doing a request. The form can handle multiple requests at once.
 
@@ -76,7 +76,7 @@ True if the form is doing a request. The form can handle multiple requests at on
 <div v-if="vueForm.isBusy()">Wait a second please.</div>
 ```
 
-***isResetAvailable()***
+###isResetAvailable()
 
 This function is mostly used for on the reset button. It is the same function as 'isSaveAvailable()' only without checkin on validation errors. 
 
@@ -90,17 +90,7 @@ True if:
 
 If you also like to check if the field 
 
-***isResetAvailable()***
-
-This function is mostly used for on the reset button. It is the same function as 'isSaveAvailable()' only without checkin on validation errors.
-
-True if:
-- Not doing a request
-- At least one value has changes (handy if it is an edit form)
-
-```vue
-<button @click="resetFormdata()" :disabled="vueForm.isResetAvailable()">Reset</button>
-```
+###isChanged()
 
 The function 'isChanged()' gives true if one of the values is different from the original values.
 
@@ -108,9 +98,9 @@ The function 'isChanged()' gives true if one of the values is different from the
 <div v-if="vueForm.isChanged()">Dont forget to save your changes!</div>
 ```
 
-### Validation
+## Validation functions
 
-All the fields are validated by Laravel validation. If there is an error in one of the fields it will store the error in the vueError object. You can use the folloing functions.
+All the fields are validated by Laravel validation. If there is an error in one of the fields it will store the error in the vueError object. You can use the following functions.
 
 Check if we have errors:
 ```vue
@@ -134,13 +124,13 @@ vueForm.vueErrors.clear()
 vueForm.vueErrors.has()
 ```
 
-### Data
-
-By init the form saves all the form data to an array of orgiginal data to check whether the data is changed.
+## Data functions
+ 
+By init the form saves all the form data to an array of original data to check whether the data is changed.
 
 Whit the following functions you can change the data, the original data or both of them.
 
-With 'updateData()' there can be updated multiple values at once. This can be handy if the data must be updateded after a request.
+With 'updateData()' there can be updated multiple values at once. This can be handy if the data must be updated after a request.
 
 ```vue
 vueForm.updateData({
@@ -170,15 +160,15 @@ The function 'resetFormdata()' resets the formdata with the original formData. I
 <button @click="resetFormdata()" :disabled="vueForm.isResetAvailable()">Reset</button>
 ```
 
-## Aditional knowlage
+## Additional knowledge
 
 ### Data transformation
 
-The form automatcly filters undifined and null values. Data objects will be convert to date stings (without any timezone issues)
+The form automatically filters undefined and null values. Data objects will be converted to date stings (without any timezone issues)
 
 ### Populate after request
 
-You can automatlicly populate the form after an request by giving an data object back.
+You can automatically populate the form after a request by giving a data object back.
 
 In your Laravel controller:
 ```php
@@ -223,7 +213,7 @@ data() {
 vueForm.sendJsonFormData = true;
 ```
 
-The middleware inside this repo can handle the translation bback to a normal request.
+The middleware inside this repository can handle the translation back to a normal request.
 
 ```php
 \App\Http\Middleware\ParseFormData::class,
