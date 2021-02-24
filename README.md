@@ -164,7 +164,7 @@ The function 'resetFormdata()' resets the formdata with the original formData. I
 
 ### Data transformation
 
-The form automatically filters undefined and null values. Data objects will be converted to date stings (without any timezone issues)
+The form automatically filters undefined and null values. Date objects will be converted to date stings. This is done without converting with ISO timestamps to prevent timezone issues
 
 ### Populate after request
 
@@ -179,7 +179,7 @@ In your Laravel controller:
     ];
 ```
 
-It is also postible to use the get() function to the form to always laod a form before sending.
+It is also possible to use the 'get()' function to the form to load a form with data.
 
 ### Global message
 
@@ -193,7 +193,7 @@ If you would like to render the Laravel http message as global error message you
 
 ### Send a Json
 
-When using booleans and null values you need to send the post data as Json object. This is a feature of the vueFrom class that can be activate by giving true as second initialze parameter.
+When using booleans and null values you need to send the post data as Json object. This is a feature of the vueFrom class that can be activate by giving true as second initialize parameter.
 
 ```javascript
 // by init
