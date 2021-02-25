@@ -221,6 +221,13 @@ The middleware inside this repository can handle the translation back to a norma
 
 It is important to add this middleware above the trimStrings middleware.
 
+###  Validation component
+
+This class work seamlessly with the validation component. Its small and works out of the box! See also the 'pix-validation' implementation in the example folder.
+
+```vue
+<pix-validate :vue-form="vueForm" field="fieldname"></pix-validate>
+```
 
 ## Example
 

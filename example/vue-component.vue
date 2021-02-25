@@ -11,23 +11,23 @@
             <!-- first name field -->
             <label for="first_name">First name:</label><br>
             <input type="text" id="first_name" v-model="vueForm.formData.first_name"><br>
-            <!-- first name error-->
+            <!-- first name error -->
             <span class="error" v-show="vueForm.vueErrors.has('first_name')">
                 {{ vueForm.vueErrors.get('first_name') }}
             </span>
             
-            <!-- last name field-->
+            <!-- last name field -->
             <label for="last_name">Last name:</label><br>
             <input type="text" id="last_name" vueForm.formData.first_name><br><br>
-            <!-- last name error-->
-            <span class="error" v-show="vueForm.vueErrors.has('last_name')">
-                {{ vueForm.vueErrors.get('last_name') }}
-            </span>
+            
+            <!-- if using pix-validation component easy validation error rendering -->
+            <!-- see the documentation -->
+            <pix-validate :vue-form="vueForm" field="last_name" fieldTranslation="achternaam"></pix-validate>
 
-            <!-- first name error-->
+            <!-- first name error -->
             <div v-if="vueForm.isChanged()">Dont forget to save your changes!</div>
 
-            <!-- first name error-->
+            <!-- first name error -->
             <button @click="submit()" :disabled="!vueForm.isSaveAvailable()">Submit</button>
             <button @click="resetFormdata()" :disabled="!vueForm.isResetAvailable()">Reset</button>
             
