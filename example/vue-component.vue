@@ -22,7 +22,7 @@
             
             <!-- if using pix-validation component easy validation error rendering -->
             <!-- see the documentation -->
-            <pix-validate :vue-form="vueForm" field="last_name" fieldTranslation="achternaam"></pix-validate>
+            <pix-validate :vue-form="vueForm" field="last_name"></pix-validate>
 
             <!-- first name error -->
             <div v-if="vueForm.isChanged()">Dont forget to save your changes!</div>
