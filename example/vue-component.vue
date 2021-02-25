@@ -28,8 +28,8 @@
             <div v-if="vueForm.isChanged()">Dont forget to save your changes!</div>
 
             <!-- first name error-->
-            <button @click="submit()" :disabled="vueForm.isResetAvailable()">Reset</button>
-            <button @click="resetFormdata()" :disabled="vueForm.isResetAvailable()">Reset</button>
+            <button @click="submit()" :disabled="!vueForm.isSaveAvailable()">Submit</button>
+            <button @click="resetFormdata()" :disabled="!vueForm.isResetAvailable()">Reset</button>
             
         </div>
     </div>
