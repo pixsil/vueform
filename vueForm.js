@@ -83,6 +83,7 @@ window.VueForm = class VueForm {
         // gather info
         for (let property in this.originalFormData) {
 
+            console.log('in'+ property)
             // if null dont sent
             if (this.formData[property] === null) {
                 continue;
@@ -101,21 +102,40 @@ window.VueForm = class VueForm {
                 // set
                 value = Number(this.formData[property]);
 
-            // if date
-            } else if (this.formData[property] instanceof Date) {
+                // add to form
+                formData.append(property, value);
+
+                // if date
+            } else if (Array.isArray(this.formData[property])) {
 
                 //
-                value = this.parseDateObject(this.formData[property]);
+                for (var i = 0; i < this.formData[property].length; i++) {
+                    
+                    // array gets normaly as csv into formData
+                    // this breaks by adding your own csv
+                    // this functions sends it al single values that php reads as array
+                    // add for each array
+                    formData.append(property +'[]', this.formData[property][i]);
+                }
 
-            // if already string
+                // if already string
+            } else if (this.formData[property] instanceof Date) {
+
+                    //
+                    value = this.parseDateObject(this.formData[property]);
+
+                    // add to form
+                    formData.append(property, value);
+
+                    // if already string
             } else {
 
                 // set
                 value = this.formData[property];
-            }
 
-            // add to form
-            formData.append(property, value);
+                // add to form
+                formData.append(property, value);
+            }
         }
 
         return formData;
