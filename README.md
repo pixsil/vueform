@@ -179,6 +179,16 @@ In your Laravel controller:
     ];
 ```
 
+###  Redirect after request
+
+It is possible that you like to redirect after the form has successfully saved. You can do this in your controller by adding the redirect parameter in the response data. The VueForm automatically redirects after the form is done.
+
+In your Laravel controller:
+```php
+    return ['redirect' => route('users.edit', [$user->id])];
+```
+
+
 It is also possible to use the 'get()' function to the form to load a form with data.
 
 ###  Global message
