@@ -83,7 +83,6 @@ window.VueForm = class VueForm {
         // gather info
         for (let property in this.originalFormData) {
 
-            console.log('in'+ property)
             // if null dont sent
             if (this.formData[property] === null) {
                 continue;
