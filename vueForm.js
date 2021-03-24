@@ -1,4 +1,4 @@
-// version 17
+// version 18
 
 window.VueForm = class VueForm {
     /**
@@ -233,6 +233,20 @@ window.VueForm = class VueForm {
         // set also the original
         this.setCurrentDataAsOriginal();
     }
+    
+    checkForRedirect(redirect) {
+
+        // check for undefined
+        if (typeof redirect === 'undefined') {
+            return;
+        }
+        // check for null
+        if (redirect === null) {
+            return;
+        }
+
+        window.location.href = redirect;
+    }
 
     /**
      * Fill current data
@@ -358,6 +372,9 @@ window.VueForm = class VueForm {
                     // delete the element from the busy array
                     this.busy.splice(this.busy.indexOf(requestType +':'+ url),1);
 
+                    // check for redirect
+                    this.checkForRedirect(response.data.redirect)
+                
                     // fill the form data
                     this.updateDataForSubmit(response.data.data);
 
@@ -399,6 +416,9 @@ window.VueForm = class VueForm {
                     // delete the element from the busy array
                     this.busy.splice(this.busy.indexOf(requestType +':'+ url),1);
 
+                    // check for redirect
+                    this.checkForRedirect(response.data.redirect)
+                
                     // fill the form data
                     this.updateDataForSubmit(response.data.data);
 
