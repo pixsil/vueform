@@ -18,6 +18,13 @@ https://www.patreon.com/pixsil
 
 ## Installation
 
+For a quick install, run this from your project root:
+```bash
+mkdir resources/js/tools/vueForm
+wget -O resources/js/tools/vue-form/vueForm.js https://raw.githubusercontent.com/pixsil/vueform/main/vueForm.js
+wget -O resources/js/tools/vue-form/vueError.js https://raw.githubusercontent.com/pixsil/vueform/main/vueError.js
+```
+
 Add this to your app.js
 ```bash
 require('./tools/vue-form/vue-form.js');
