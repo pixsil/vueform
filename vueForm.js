@@ -7,7 +7,7 @@ window.VueForm = class VueForm {
      * @param  {object} data
      */
     constructor(formData) {
-        this.sendJsonFormData = true;
+        this.sendJsonFormData = false;
         this.originalFormData = {...formData};
         this.formData = formData;
         this.vueErrors = new VueErrors(formData);
