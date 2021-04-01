@@ -20,9 +20,9 @@ https://www.patreon.com/pixsil
 
 For a quick install, run this from your project root:
 ```bash
-mkdir resources/js/tools/vueForm
-wget -O resources/js/tools/vue-form/vueForm.js https://raw.githubusercontent.com/pixsil/vue-form/main/vueForm.js
-wget -O resources/js/tools/vue-form/vueError.js https://raw.githubusercontent.com/pixsil/vue-form/main/vueError.js
+mkdir resources/js/tools/vue-form
+wget -O resources/js/tools/vue-form/vueForm.js https://raw.githubusercontent.com/pixsil/vueform/main/vueForm.js
+wget -O resources/js/tools/vue-form/vueError.js https://raw.githubusercontent.com/pixsil/vueform/main/vueError.js
 ```
 
 Add this to your app.js
