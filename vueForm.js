@@ -305,6 +305,29 @@ window.VueForm = class VueForm {
     }
 
     /**
+     * Use a general function
+     */
+    submit(method, url) {
+        switch(method) {
+            case 'get':
+                this.get(url);
+                break;
+            case 'post':
+                this.post(url);
+                break;
+            case 'put':
+                this.put(url);
+                break;
+            case 'patch':
+                this.patch(url);
+                break;
+            case 'delete':
+                this.delete(url);
+                break;
+        }
+    }
+    
+    /**
      * Get
      * .
      * @param  {string} url
