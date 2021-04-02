@@ -60,6 +60,14 @@ You can send your form like this. You can also use delete, patch, put or even ge
     },
 ```
 
+If you like to use a variable as method you can also use the submit(method, url) function. Like so:
+```javascript
+    let method = 'patch';
+
+    this.vueForm.submit(method, '/update')
+        .then(response => this.onSuccess())
+```
+
 ## Render functions
 
 There are several functions you can use to block different parts of the form by different states. For example the function 'isSaveAvailable()' gives 'true' if the form is not doing a request, got at least one value changed and does not have unsolved validation errors.
