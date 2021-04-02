@@ -310,19 +310,19 @@ window.VueForm = class VueForm {
     submit(method, url) {
         switch(method) {
             case 'get':
-                this.get(url);
+                return this.get(url);
                 break;
             case 'post':
-                this.post(url);
+                return this.post(url);
                 break;
             case 'put':
-                this.put(url);
+                return this.put(url);
                 break;
             case 'patch':
-                this.patch(url);
+                return this.patch(url);
                 break;
             case 'delete':
-                this.delete(url);
+                return this.delete(url);
                 break;
         }
     }
