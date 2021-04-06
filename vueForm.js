@@ -1,4 +1,4 @@
-// version 20
+// version 21
 
 window.VueForm = class VueForm {
     /**
@@ -6,7 +6,7 @@ window.VueForm = class VueForm {
      *
      * @param  {object} data
      */
-    constructor(formData) {
+    constructor(formData = {}) {
         this.sendJsonFormData = false;
         this.originalFormData = {...formData};
         this.formData = formData;
@@ -374,14 +374,26 @@ window.VueForm = class VueForm {
 
         return promise;
     }
-
+    
     /**
      * Send a DELETE request to the given URL.
      * .
      * @param  {string} url
      */
     delete(url) {
-        return this.submit_post('delete', url);
+        // add _method
+        // this is a bug in symphony, this must be send with it
+        this.formData['_method'] = 'DELETE';
+        this.originalFormData['_method'] = 'DELETE';
+
+        // get promise to return
+        let promise = this.submit_post('delete', url);
+
+        // unset for next request
+        delete this.formData['_method'];
+        delete this.originalFormData['_method'];
+
+        return promise;
     }
 
     /**
