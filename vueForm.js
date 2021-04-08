@@ -55,13 +55,13 @@ window.VueForm = class VueForm {
                 // add file
                 formData.append(property, this.formData[property])
 
-            // date object in javascript changes date to use timezone
+                // date object in javascript changes date to use timezone
             } else if (this.formData[property] instanceof Date) {
 
                 //
                 json[property] = this.parseDateObject(this.formData[property]);
 
-            // add everything else
+                // add everything else
             } else {
 
                 // add to json
@@ -109,7 +109,7 @@ window.VueForm = class VueForm {
 
                 //
                 for (var i = 0; i < this.formData[property].length; i++) {
-                    
+
                     // array gets normaly as csv into formData
                     // this breaks by adding your own csv
                     // this functions sends it al single values that php reads as array
@@ -120,13 +120,13 @@ window.VueForm = class VueForm {
                 // if already string
             } else if (this.formData[property] instanceof Date) {
 
-                    //
-                    value = this.parseDateObject(this.formData[property]);
+                //
+                value = this.parseDateObject(this.formData[property]);
 
-                    // add to form
-                    formData.append(property, value);
+                // add to form
+                formData.append(property, value);
 
-                    // if already string
+                // if already string
             } else {
 
                 // set
@@ -252,7 +252,7 @@ window.VueForm = class VueForm {
         // set also the original
         this.setCurrentDataAsOriginal();
     }
-    
+
     checkForRedirect(redirect) {
 
         // check for undefined
@@ -326,7 +326,7 @@ window.VueForm = class VueForm {
                 break;
         }
     }
-    
+
     /**
      * Get
      * .
@@ -374,7 +374,7 @@ window.VueForm = class VueForm {
 
         return promise;
     }
-    
+
     /**
      * Send a DELETE request to the given URL.
      * .
@@ -418,17 +418,17 @@ window.VueForm = class VueForm {
 
             // build axios
             axios[temp_type](url, this.getFormData(), {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
                 .then(response => {
                     // delete the element from the busy array
                     this.busy.splice(this.busy.indexOf(requestType +':'+ url),1);
 
                     // check for redirect
                     this.checkForRedirect(response.data.redirect)
-                
+
                     // fill the form data
                     this.updateDataForSubmit(response.data.data);
 
@@ -472,7 +472,7 @@ window.VueForm = class VueForm {
 
                     // check for redirect
                     this.checkForRedirect(response.data.redirect)
-                
+
                     // fill the form data
                     this.updateDataForSubmit(response.data.data);
 
