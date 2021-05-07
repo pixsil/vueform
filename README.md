@@ -246,6 +246,17 @@ The middleware inside this repository can handle the translation back to a norma
 
 It is important to add this middleware above the trimStrings middleware.
 
+
+###  Send a Json
+
+By default the null values do not get send within the post. You can change this behauvior by setting the option 'sendDontSendEmptyValues' to false.
+
+```vue
+this.vueForm.sendDontSendEmptyValues = false;
+```
+
+Keep in mind that Laravel is removing empty stings and replace them with null values in the middleware.
+
 ###  Validation component
 
 This class work seamlessly with the validation component. Its small and works out of the box! See also the 'pix-validation' implementation in the example folder.
