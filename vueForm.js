@@ -8,7 +8,7 @@ window.VueForm = class VueForm {
      */
     constructor(formData = {}) {
         this.sendJsonFormData = false;
-        this.sendDontSendEmptyValues = true;
+        this.doNotSendEnptyValues = true;
         this.originalFormData = {...formData};
         this.formData = formData;
         this.vueErrors = new VueErrors(formData);
@@ -85,7 +85,7 @@ window.VueForm = class VueForm {
         for (let property in this.originalFormData) {
 
             // if null dont sent
-            if (this.sendDontSendEmptyValues === true && this.formData[property] === null) {
+            if (this.doNotSendEnptyValues === true && this.formData[property] === null) {
                 continue;
             }
             // if null dont sent
