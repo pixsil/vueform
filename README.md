@@ -249,10 +249,10 @@ It is important to add this middleware above the trimStrings middleware.
 
 ###  Send a Json
 
-By default the null values do not get send within the post. You can change this behauvior by setting the option 'sendDontSendEmptyValues' to false.
+By default the null values do not get send within the post. You can change this behauvior by setting the option 'doNotSendEnptyValues' to false.
 
 ```vue
-this.vueForm.sendDontSendEmptyValues = false;
+this.vueForm.doNotSendEnptyValues = false;
 ```
 
 Keep in mind that Laravel is removing empty stings and replace them with null values in the middleware.
