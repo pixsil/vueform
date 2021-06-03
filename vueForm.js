@@ -105,7 +105,7 @@ window.VueForm = class VueForm {
                 // add to form
                 formData.append(property, value);
 
-                // if date
+            // if date
             } else if (Array.isArray(this.formData[property])) {
 
                 //
@@ -118,7 +118,7 @@ window.VueForm = class VueForm {
                     formData.append(property +'[]', this.formData[property][i]);
                 }
 
-                // if already string
+            // if already string
             } else if (this.formData[property] instanceof Date) {
 
                 //
@@ -126,8 +126,14 @@ window.VueForm = class VueForm {
 
                 // add to form
                 formData.append(property, value);
+                
+            // if the value is null dont send the text 'null' but empty
+            } else if (this.formData[property] === null) {
 
-                // if already string
+                // add to form
+                formData.append(property, '');
+                
+            // if already string
             } else {
 
                 // set
