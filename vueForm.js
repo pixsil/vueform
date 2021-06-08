@@ -1,4 +1,4 @@
-// version 22
+// version 23
 
 window.VueForm = class VueForm {
     /**
@@ -116,6 +116,11 @@ window.VueForm = class VueForm {
                     // this functions sends it al single values that php reads as array
                     // add for each array
                     formData.append(property +'[]', this.formData[property][i]);
+                }
+                
+                // if the whole array is empty add null
+                if (this.formData[property].length === 0 && this.doNotSendEnptyValues === false) {
+                    formData.append(property, null);
                 }
 
             // if already string
