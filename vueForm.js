@@ -118,9 +118,9 @@ window.VueForm = class VueForm {
                     formData.append(property +'[]', this.formData[property][i]);
                 }
                 
-                // if the whole array is empty add null
+                // if the whole array is empty add empty string
                 if (this.formData[property].length === 0 && this.doNotSendEnptyValues === false) {
-                    formData.append(property, null);
+                    formData.append(property, '');
                 }
 
             // if already string
