@@ -1,4 +1,4 @@
-// version 9
+// version 10
 
 window.VueErrors = class VueErrors {
     /**
@@ -7,6 +7,7 @@ window.VueErrors = class VueErrors {
     constructor(data) {
         this.fields = {};
         this.global_message = null;
+        this.error_message = null;
 
         for (let field in data) {
             this.fields[field] = null;
@@ -78,6 +79,15 @@ window.VueErrors = class VueErrors {
     }
 
     /**
+     * Record the new errors.
+     *
+     * @param {object} errors
+     */
+    recordErrorMessage(message) {
+        this.error_message = message;
+    }
+
+    /**
      * Specially for vue-bootstrap state
      */
     state(field) {
@@ -102,6 +112,7 @@ window.VueErrors = class VueErrors {
 
         // reset global message
         this.global_message = '';
+        this.error_message = '';
 
         // reset errors
         this.errors = {...this.fields};
