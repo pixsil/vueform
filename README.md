@@ -208,13 +208,19 @@ It is also possible to use the 'get()' function to the form to load a form with 
 
 ###  Global message
 
-If you would like to render the Laravel http message as global error message you can do something like this:
+The global message is filled with the response message from the 422 exception. This is in Laravel used to give back a global message. You can use this functionality if you would like to add a global error message that is not field related.
+
+On all the the other http errors codes the message is filled with a default error text. You can also use your own error messages, see example below.
 
 ```vue
 <div v-if="vueForm.vueErrors.global_message" class="alert alert-warning" role="alert">
      {{ vueForm.vueErrors.global_message }}
 </div>
 ```
+
+###  Error message
+
+The global message (see above) is only filled when with http status code 422. For all the other http codes the error_message variable is filled. This could be used for debugging. It is not smart you show this error in the frontend, because it often a technical description.
 
 ###  Send a Json
 
