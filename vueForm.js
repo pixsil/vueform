@@ -1,4 +1,4 @@
-// version 23
+// version 24
 
 window.VueForm = class VueForm {
     /**
@@ -447,7 +447,7 @@ window.VueForm = class VueForm {
                     resolve(response.data);
                 })
                 .catch(error => {
-                    this.onFail(error.response.data);
+                    this.onFail(error.response.data, error.response.status);
                     // delete the element from the busy array
                     this.busy.splice(this.busy.indexOf(requestType +':'+ url),1);
 
@@ -491,7 +491,7 @@ window.VueForm = class VueForm {
                     resolve(response.data);
                 })
                 .catch(error => {
-                    this.onFail(error.response.data);
+                    this.onFail(error.response.data, error.response.status);
                     // delete the element from the busy array
                     this.busy.splice(this.busy.indexOf(requestType +':'+ url),1);
 
@@ -505,8 +505,15 @@ window.VueForm = class VueForm {
      *
      * @param  {object} errors
      */
-    onFail(errors) {
-        this.vueErrors.record(errors.errors);
-        this.vueErrors.recordGlobalMessage(errors.message);
+    onFail(data, status) {
+        this.vueErrors.record(data.errors);
+
+        //
+        if (status === 422) {
+            this.vueErrors.recordGlobalMessage(data.message);
+        } else {
+            this.vueErrors.recordGlobalMessage('An error occurred.');
+            this.vueErrors.recordErrorMessage(data.message);
+        }
     }
 }
