@@ -218,13 +218,27 @@ On all the the other http errors codes the message is filled with a default erro
 </div>
 ```
 
+You can use the global message if you have an error that is not field related. In Laravel you can fill the error like this:
+
+```php
+abort(422, 'Je kan niet meer afroepen dan er beschikbaar is.');
+```
+
+The default 422 response code is "The given data was invalid.". I only like to show custom messages. A good approche to accomplish this is to only show the message if it is not filled with the default message. Something like this:
+
+```vue
+<div v-if="vueForm.vueErrors.global_message && vueForm.vueErrors.global_message !== 'The given data was invalid.'" class="alert alert-warning" role="alert">
+     {{ vueForm.vueErrors.global_message }}
+</div>
+```
+
 ###  Error message
 
 The global message (see above) is only filled when with http status code 422. For all the other http codes the error_message variable is filled. This could be used for debugging. It is not smart you show this error in the frontend, because it often a technical description.
 
 You can find the error message in the VueErros object in side the VueForm object. For example to see the error in console:
 
-```js
+```javascript
 $vm0.vueForm.vueErrors.error_message
 ```
 
