@@ -222,6 +222,12 @@ On all the the other http errors codes the message is filled with a default erro
 
 The global message (see above) is only filled when with http status code 422. For all the other http codes the error_message variable is filled. This could be used for debugging. It is not smart you show this error in the frontend, because it often a technical description.
 
+You can find the error message in the VueErros object in side the VueForm object. For example to see the error in console:
+
+```js
+$vm0.vueForm.vueErrors.error_message
+```
+
 ###  Send a Json
 
 When using booleans and null values you need to send the post data as Json object. This is a feature of the vueFrom class that can be activate by giving true as second initialize parameter.
