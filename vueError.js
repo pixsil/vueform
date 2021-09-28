@@ -1,4 +1,4 @@
-// version 10
+// version 11
 
 window.VueErrors = class VueErrors {
     /**
@@ -29,7 +29,7 @@ window.VueErrors = class VueErrors {
      * Determine if we have any errors.
      */
     any() {
-        return Object.values(this.errors).filter(value => value != null).length ? true : false;
+        return Object.values(this.errors).filter(value => value !== null).length ? true : false;
     }
 
     /**
