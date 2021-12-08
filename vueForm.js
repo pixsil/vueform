@@ -1,4 +1,4 @@
-// version 24
+// version 25 (added way to handle file, added debugger, removed hard error)
 
 window.VueForm = class VueForm {
     /**
@@ -13,6 +13,7 @@ window.VueForm = class VueForm {
         this.formData = formData;
         this.vueErrors = new VueErrors(formData);
         this.busy = [];
+        this.isBusyStatus = false;
     }
 
     /**
@@ -27,12 +28,12 @@ window.VueForm = class VueForm {
         if (this.sendJsonFormData === true) {
 
             // we parse formData to json to handle null and Data objects (middleware needed)
-            formData = this.parseFormData();
+            formData = this.formDataToJson();
 
         } else {
 
             // we have to rewrite formData to handle null and Date objects
-            formData = this.rewriteFormData();
+            formData = this.createFormDataObject();
         }
 
         return formData;
@@ -41,7 +42,7 @@ window.VueForm = class VueForm {
     /*
      * parse form data
      */
-    parseFormData() {
+    formDataToJson() {
 
         // init object
         let formData = new FormData()
@@ -76,7 +77,10 @@ window.VueForm = class VueForm {
         return formData;
     }
 
-    rewriteFormData() {
+    /*
+     * create the formData object
+     */
+    createFormDataObject() {
 
         // init object
         let formData = new FormData()
@@ -105,22 +109,40 @@ window.VueForm = class VueForm {
                 // add to form
                 formData.append(property, value);
 
-            // if date
+            // if array
             } else if (Array.isArray(this.formData[property])) {
 
                 //
                 for (var i = 0; i < this.formData[property].length; i++) {
 
-                    // array gets normaly as csv into formData
+                    // array gets normally as csv into formData
                     // this breaks by adding your own csv
                     // this functions sends it al single values that php reads as array
                     // add for each array
                     formData.append(property +'[]', this.formData[property][i]);
                 }
-                
+
                 // if the whole array is empty add empty string
                 if (this.formData[property].length === 0 && this.doNotSendEnptyValues === false) {
                     formData.append(property, '');
+                }
+
+            // if is a file
+            } else if (this.formData[property] instanceof File) {
+
+                // set
+                name = this.formData[property].name;
+                value = this.formData[property];
+
+                // add to form
+                formData.append(property, value, name);
+
+            // if object
+            } else if (typeof this.formData[property] === 'object' && this.formData[property] !== null) {
+
+                //
+                for (var key in this.formData[property]) {
+                    formData.append(property +'['+ key +']', this.formData[property][key]);
                 }
 
             // if already string
@@ -131,13 +153,13 @@ window.VueForm = class VueForm {
 
                 // add to form
                 formData.append(property, value);
-                
-            // if the value is null dont send the text 'null' but empty
+
+            // if the value is null dont send the text null but empty
             } else if (this.formData[property] === null) {
 
                 // add to form
                 formData.append(property, '');
-                
+
             // if already string
             } else {
 
@@ -150,6 +172,16 @@ window.VueForm = class VueForm {
         }
 
         return formData;
+    }
+
+    /*
+     * parse data object
+     */
+    debugFormData(formData) {
+        // Display the key/value pairs
+        for (var pair of formData.entries()) {
+            console.log(pair[0]+ ': ' + pair[1]);
+        }
     }
 
     /*
@@ -200,6 +232,24 @@ window.VueForm = class VueForm {
 
         // identifier set
         return this.busy.includes(identifier);
+    }
+
+    /**
+     * Update busy
+     */
+    addBusyUrl(url) {
+        this.busy.push(url);
+
+        this.isBusyStatus = this.isBusy();
+    }
+
+    /**
+     * Update busy
+     */
+    removeBusyUrl(url) {
+        this.busy.splice(this.busy.indexOf(url),1);
+
+        this.isBusyStatus = this.isBusy();
     }
 
     /**
@@ -420,7 +470,7 @@ window.VueForm = class VueForm {
         this.vueErrors.clear();
 
         // set busy
-        this.busy.push(requestType +':'+ url);
+        this.addBusyUrl(requestType +':'+ url)
 
         // normaly you would add request_type but this is a bug in Laravel
         let temp_type = 'post';
@@ -436,7 +486,7 @@ window.VueForm = class VueForm {
             })
                 .then(response => {
                     // delete the element from the busy array
-                    this.busy.splice(this.busy.indexOf(requestType +':'+ url),1);
+                    this.removeBusyUrl(requestType +':'+ url)
 
                     // check for redirect
                     this.checkForRedirect(response.data.redirect)
@@ -449,9 +499,9 @@ window.VueForm = class VueForm {
                 .catch(error => {
                     this.onFail(error.response.data, error.response.status);
                     // delete the element from the busy array
-                    this.busy.splice(this.busy.indexOf(requestType +':'+ url),1);
+                    this.removeBusyUrl(requestType +':'+ url)
 
-                    reject(error);
+                    // reject(error);
                 });
         });
     }
@@ -468,7 +518,7 @@ window.VueForm = class VueForm {
         this.vueErrors.clear();
 
         // set busy
-        this.busy.push(requestType +':'+ url);
+        this.addBusyUrl(requestType +':'+ url)
 
         // normaly you would add request_type but this is a bug in Laravel
         let  temp_type = 'get';
@@ -480,7 +530,7 @@ window.VueForm = class VueForm {
             axios[temp_type](url)
                 .then(response => {
                     // delete the element from the busy array
-                    this.busy.splice(this.busy.indexOf(requestType +':'+ url),1);
+                    this.removeBusyUrl(requestType +':'+ url)
 
                     // check for redirect
                     this.checkForRedirect(response.data.redirect)
@@ -493,9 +543,10 @@ window.VueForm = class VueForm {
                 .catch(error => {
                     this.onFail(error.response.data, error.response.status);
                     // delete the element from the busy array
-                    this.busy.splice(this.busy.indexOf(requestType +':'+ url),1);
+                    this.removeBusyUrl(requestType +':'+ url)
 
-                    reject(error);
+
+                    // reject(error);
                 });
         });
     }
