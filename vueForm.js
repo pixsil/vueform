@@ -1,10 +1,11 @@
+// version 26 Added request header option (for sendCredentials option)
 // version 25 (added way to handle file, added debugger, removed hard error)
 
 window.VueForm = class VueForm {
     /**
      * Create a new Form instance.
      *
-     * @param  {object} data
+     * @param formData
      */
     constructor(formData = {}) {
         this.sendJsonFormData = false;
@@ -14,6 +15,11 @@ window.VueForm = class VueForm {
         this.vueErrors = new VueErrors(formData);
         this.busy = [];
         this.isBusyStatus = false;
+        this.axiosRequestConfig = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        };
     }
 
     /**
@@ -109,7 +115,7 @@ window.VueForm = class VueForm {
                 // add to form
                 formData.append(property, value);
 
-            // if array
+                // if array
             } else if (Array.isArray(this.formData[property])) {
 
                 //
@@ -127,7 +133,7 @@ window.VueForm = class VueForm {
                     formData.append(property, '');
                 }
 
-            // if is a file
+                // if is a file
             } else if (this.formData[property] instanceof File) {
 
                 // set
@@ -137,7 +143,7 @@ window.VueForm = class VueForm {
                 // add to form
                 formData.append(property, value, name);
 
-            // if object
+                // if object
             } else if (typeof this.formData[property] === 'object' && this.formData[property] !== null) {
 
                 //
@@ -145,7 +151,7 @@ window.VueForm = class VueForm {
                     formData.append(property +'['+ key +']', this.formData[property][key]);
                 }
 
-            // if already string
+                // if already string
             } else if (this.formData[property] instanceof Date) {
 
                 //
@@ -154,13 +160,13 @@ window.VueForm = class VueForm {
                 // add to form
                 formData.append(property, value);
 
-            // if the value is null dont send the text null but empty
+                // if the value is null dont send the text null but empty
             } else if (this.formData[property] === null) {
 
                 // add to form
                 formData.append(property, '');
 
-            // if already string
+                // if already string
             } else {
 
                 // set
@@ -337,6 +343,21 @@ window.VueForm = class VueForm {
     }
 
     /**
+     * https://axios-http.com/docs/req_config
+     */
+    getAxiosRequestConfig() {
+        return this.axiosRequestConfig;
+    }
+
+    addAxiosRequestConfig(config) {
+        this.axiosRequestConfig = Object.assign(this.axiosRequestConfig, config);
+    }
+
+    replaceAxiosRequestConfig(config) {
+        this.axiosRequestConfig = config;
+    }
+
+    /**
      * Fill current data and original data
      * Data is data not strcuture
      */
@@ -479,11 +500,7 @@ window.VueForm = class VueForm {
         return new Promise((resolve, reject) => {
 
             // build axios
-            axios[temp_type](url, this.getFormData(), {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
+            axios[temp_type](url, this.getFormData(), this.getAxiosRequestConfig())
                 .then(response => {
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
@@ -527,7 +544,7 @@ window.VueForm = class VueForm {
         return new Promise((resolve, reject) => {
 
             // build axios
-            axios[temp_type](url)
+            axios[temp_type](url, this.getAxiosRequestConfig())
                 .then(response => {
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
