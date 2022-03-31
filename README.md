@@ -82,6 +82,27 @@ If you like to use a variable as method you can also use the submit(method, url)
         .then(response => this.onSuccess())
 ```
 
+If you want to send the data as JSON (in combination with the middleware for Laravel) you can init the VueForm object with the second parameter true. Or set it true with sendJsonFormData afterwards.
+
+```javascript
+// by init
+data() {
+    return {
+        vueForm: new VueForm(
+            {
+                'name': null,
+                'age': null,
+            },
+            true, // <-----
+        )
+    }
+}
+
+// after init
+vueForm.sendJsonFormData = true;
+```
+
+
 ## Render functions
 
 There are several functions you can use to block different parts of the form by different states. For example the function 'isSaveAvailable()' gives 'true' if the form is not doing a request, got at least one value changed and does not have unsolved validation errors.
@@ -255,36 +276,6 @@ You can find the error message in the VueErros object in side the VueForm object
 ```javascript
 $vm0.vueForm.vueErrors.error_message
 ```
-
-###  Send a Json
-
-When using booleans and null values you need to send the post data as Json object. This is a feature of the vueFrom class that can be activate by giving true as second initialize parameter.
-
-```javascript
-// by init
-data() {
-    return {
-        vueForm: new VueForm(
-            {
-                'name': null,
-                'age': null,
-            },
-            true, // <-----
-        )
-    }
-}
-
-// after init
-vueForm.sendJsonFormData = true;
-```
-
-The middleware inside this repository can handle the translation back to a normal request.
-
-```php
-\App\Http\Middleware\ParseFormData::class,
-```
-
-It is important to add this middleware above the trimStrings middleware.
 
 
 ###  Send null values
