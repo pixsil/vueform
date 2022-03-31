@@ -273,7 +273,7 @@ The middleware inside this repository can handle the translation back to a norma
 It is important to add this middleware above the trimStrings middleware.
 
 
-###  Send a Json
+###  Send null values
 
 By default the null values do not get send within the post. You can change this behauvior by setting the option 'doNotSendEnptyValues' to false.
 
