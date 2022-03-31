@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class ParseFormData
+class ParseFormDataMiddleware
 {
     /**
      * @param  \Illuminate\Http\Request  $request
