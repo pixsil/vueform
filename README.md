@@ -26,7 +26,7 @@ wget -O resources/js/tools/vue-form/vue-error.js https://raw.githubusercontent.c
 ```
 
 Add this to your app.js
-```bash
+```javascript
 require('./tools/vue-form/vue-form.js');
 require('./tools/vue-form/vue-error.js');
 ```
