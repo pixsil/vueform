@@ -10,6 +10,10 @@
 * Support for sending data as JSON object whats making sending null and bolean values possible
 * A lot of functions for validation, rendering and data transformations
 
+There is always a bit of a struggle in what multipart type you want to send your values. If you want to send files through the request the only way to go is to use "application/x-www-form-urlencoded". But this type got problems with with typecasting values and non support voor booleans (which got difficulties with Laravel validation).
+
+In my recent projects I switched to post my values always as json. There is a middleware in this package that can transform the json to a normal request. You can go from here exactly the same as you did before, and the data got the same type as is was send from.
+
 ## Donate
 
 Find this project useful? You can support me on Patreon
@@ -29,6 +33,16 @@ Add this to your app.js
 ```javascript
 require('./tools/vue-form/vue-form.js');
 require('./tools/vue-form/vue-error.js');
+```
+
+When you want to send data as JSON in Laravel. Use the following middleware:
+```bash
+wget -O app/Http/Middleware/ParseFormDataMiddleware.php https://raw.githubusercontent.com/pixsil/vueform/main/middleware/ParseFormDataMiddleware.php
+```
+
+And include this middleware inside the kernel (in $middleware array):
+```php
+\App\Http\Middleware\ParseFormDataMiddleware::class,
 ```
 
 ## Usage
