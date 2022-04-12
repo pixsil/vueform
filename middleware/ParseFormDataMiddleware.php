@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
 class ParseFormDataMiddleware
 {
@@ -11,7 +12,7 @@ class ParseFormDataMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $isFormData = str_contains(
             $request->headers->get('content-type'),
