@@ -1,3 +1,4 @@
+// version 27 Fixed reference deep errors
 // version 26 Added request header option (for sendCredentials option)
 // version 25 (added way to handle file, added debugger, removed hard error)
 
@@ -10,7 +11,8 @@ window.VueForm = class VueForm {
     constructor(formData = {}) {
         this.sendJsonFormData = false;
         this.doNotSendEnptyValues = true;
-        this.originalFormData = {...formData};
+        this.originalJsonData = JSON.stringify(formData);
+        this.originalFormData = JSON.parse(this.originalJsonData);
         this.formData = formData;
         this.vueErrors = new VueErrors(formData);
         this.busy = [];
@@ -186,7 +188,7 @@ window.VueForm = class VueForm {
     debugFormData(formData) {
         // Display the key/value pairs
         for (var pair of formData.entries()) {
-            console.log(pair[0]+ ': ' + pair[1]);
+            //console.log(pair[0]+ ': ' + pair[1]);
         }
     }
 
@@ -213,9 +215,11 @@ window.VueForm = class VueForm {
     resetFormdata() {
 
         //
-        for (let field in this.originalFormData) {
-            this.formData[field] = this.originalFormData[field];
-        }
+        this.formData = JSON.parse(this.originalJsonData);
+
+        // for (let field in this.originalFormData) {
+        //     this.formData[field] = this.originalFormData[field];
+        // }
         this.vueErrors.clear();
     }
 
@@ -223,7 +227,7 @@ window.VueForm = class VueForm {
      * still used?
      */
     isChanged() {
-        return JSON.stringify(this.originalFormData) !== JSON.stringify(this.formData)
+        return this.originalJsonData !== JSON.stringify(this.formData)
     }
 
     /**
@@ -339,7 +343,8 @@ window.VueForm = class VueForm {
      * Fill current data
      */
     setCurrentDataAsOriginal() {
-        this.originalFormData = {...this.formData};
+        this.originalJsonData = JSON.stringify(this.formData);
+        this.originalFormData = JSON.parse(this.originalJsonData);
     }
 
     /**
