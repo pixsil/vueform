@@ -45,6 +45,15 @@ And include this middleware inside the kernel (in $middleware array):
 \App\Http\Middleware\ParseFormDataMiddleware::class,
 ```
 
+You can choice per form if you like to send the values as JSON. If you always want to send them as JSON you can set the following setting globally.
+
+```javascript
+// set vueFormSettings
+global.vueFormSettings = {
+    sendJsonFormData: true
+}
+```
+
 ## Usage
 You can use the vueform object inside your data object in the Vue component. You need to give the object field that should be posted. Only the fields by init will be send by the post. There are several functions to change these initial fields later on.
 ```javascript
@@ -102,6 +111,7 @@ data() {
 vueForm.sendJsonFormData = true;
 ```
 
+Or set the setting globally, see ealier section.
 
 ## Render functions
 
