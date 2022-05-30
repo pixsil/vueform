@@ -90,8 +90,8 @@ data() {
     return {
         vueForm: new VueForm(
             {
-                'name': null,
-                'age': null,
+                name: null,
+                age: null,
             },
             true, // <-----
         )
