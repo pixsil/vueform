@@ -1,3 +1,4 @@
+// version 28 Made global setting object
 // version 27 Fixed reference deep errors
 // version 26 Added request header option (for sendCredentials option)
 // version 25 (added way to handle file, added debugger, removed hard error)
@@ -10,6 +11,9 @@ window.VueForm = class VueForm {
      */
     constructor(formData = {}) {
         this.sendJsonFormData = false;
+        if (window.vueFormSettings?.sendJsonFormData) {
+            this.sendJsonFormData = window.vueFormSettings.sendJsonFormData;
+        }
         this.doNotSendEnptyValues = true;
         this.originalJsonData = JSON.stringify(formData);
         this.originalFormData = JSON.parse(this.originalJsonData);
