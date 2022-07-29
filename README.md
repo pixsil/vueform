@@ -258,8 +258,8 @@ The global message is filled with the response message from the 422 exception. T
 On all the the other http errors codes the message is filled with a default error text. You can also use your own error messages, see example below.
 
 ```vue
-<div v-if="vueForm.vueErrors.global_message" class="alert alert-warning" role="alert">
-     {{ vueForm.vueErrors.global_message }}
+<div v-if="vueForm.vueErrors.global_message && !vueForm.vueErrors.any()" class="mt-3 alert alert-warning" role="alert">
+    {{ vueForm.vueErrors.global_message }}
 </div>
 ```
 
