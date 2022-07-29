@@ -4,7 +4,7 @@
         <div show-overlay="vueForm.isBusy()" class="loading-overlay">
 
             <!-- first name field -->
-            <div v-if="vueForm.vueErrors.global_message">
+            <div v-if="vueForm.vueErrors.global_message && !vueForm.vueErrors.any()" class="mt-3 alert alert-warning" role="alert">
                 {{ vueForm.vueErrors.global_message }}
             </div>
 
