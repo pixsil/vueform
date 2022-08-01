@@ -1,3 +1,4 @@
+// version 29 Reject was commented out, this is needed for a catch on the vueForm object
 // version 28 Made global setting object
 // version 27 Fixed reference deep errors
 // version 26 Added request header option (for sendCredentials option)
@@ -511,6 +512,7 @@ window.VueForm = class VueForm {
             // build axios
             axios[temp_type](url, this.getFormData(), this.getAxiosRequestConfig())
                 .then(response => {
+                    console.log(11111);
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
 
@@ -523,11 +525,13 @@ window.VueForm = class VueForm {
                     resolve(response.data);
                 })
                 .catch(error => {
+                    console.log(3232323);
                     this.onFail(error.response.data, error.response.status);
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
 
-                    // reject(error);
+                    // this is needed to use catch on the vueForm object
+                    reject(error);
                 });
         });
     }
@@ -555,6 +559,7 @@ window.VueForm = class VueForm {
             // build axios
             axios[temp_type](url, this.getAxiosRequestConfig())
                 .then(response => {
+                    console.log(3232323);
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
 
@@ -567,12 +572,13 @@ window.VueForm = class VueForm {
                     resolve(response.data);
                 })
                 .catch(error => {
+                    console.log(3232323);
                     this.onFail(error.response.data, error.response.status);
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
 
-
-                    // reject(error);
+                    // this is needed to use catch on the vueForm object
+                    reject(error);
                 });
         });
     }
