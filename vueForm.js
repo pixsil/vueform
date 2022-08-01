@@ -512,7 +512,6 @@ window.VueForm = class VueForm {
             // build axios
             axios[temp_type](url, this.getFormData(), this.getAxiosRequestConfig())
                 .then(response => {
-
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
 
@@ -525,7 +524,6 @@ window.VueForm = class VueForm {
                     resolve(response.data);
                 })
                 .catch(error => {
-
                     this.onFail(error.response.data, error.response.status);
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
@@ -559,7 +557,6 @@ window.VueForm = class VueForm {
             // build axios
             axios[temp_type](url, this.getAxiosRequestConfig())
                 .then(response => {
-
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
 
@@ -572,7 +569,6 @@ window.VueForm = class VueForm {
                     resolve(response.data);
                 })
                 .catch(error => {
-
                     this.onFail(error.response.data, error.response.status);
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
