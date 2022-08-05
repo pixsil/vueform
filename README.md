@@ -42,6 +42,7 @@ wget -O app/Http/Middleware/ParseFormDataMiddleware.php https://raw.githubuserco
 
 And include this middleware inside the kernel (in $middleware array):
 ```php
+// somewhere above HandleCors (otherwise the Laravel '_method') is not reconized
 \App\Http\Middleware\ParseFormDataMiddleware::class,
 ```
 
