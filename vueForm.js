@@ -1,3 +1,4 @@
+// version 30 Added nice throttle error
 // version 29 Reject was commented out, this is needed for a catch on the vueForm object
 // version 28 Made global setting object
 // version 27 Fixed reference deep errors
@@ -587,9 +588,13 @@ window.VueForm = class VueForm {
     onFail(data, status) {
         this.vueErrors.record(data.errors);
 
-        //
+        // by validation errors
         if (status === 422) {
             this.vueErrors.recordGlobalMessage(data.message);
+        // by throttle error
+        } else if (status === 429) {
+            this.vueErrors.recordGlobalMessage(data.message);
+        // all other errors, like server errors
         } else {
             this.vueErrors.recordGlobalMessage('An error occurred.');
             this.vueErrors.recordErrorMessage(data.message);
