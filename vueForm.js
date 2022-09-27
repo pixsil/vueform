@@ -1,3 +1,4 @@
+// version 31 Added console warn by no valid url 
 // version 30 Added nice throttle error
 // version 29 Reject was commented out, this is needed for a catch on the vueForm object
 // version 28 Made global setting object
@@ -307,6 +308,8 @@ window.VueForm = class VueForm {
                 this.formData[field] = data[field];
             }
         }
+
+        console.log(this.formData);
     }
 
     /**
@@ -498,6 +501,10 @@ window.VueForm = class VueForm {
      */
     submit_post(requestType, url)
     {
+        if (!url) {
+            console.error('No valid url in vueForm (POST)')
+        }
+
         // reset errors if they are still there
         this.vueErrors.clear();
 
@@ -542,6 +549,10 @@ window.VueForm = class VueForm {
      * @param  {string} url
      */
     submit_get(requestType, url) {
+
+        if (!url) {
+            console.error('No valid url in vueForm (GET)')
+        }
 
         // reset errors if they are still there
         this.vueErrors.clear();
