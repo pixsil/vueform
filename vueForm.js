@@ -308,8 +308,6 @@ window.VueForm = class VueForm {
                 this.formData[field] = data[field];
             }
         }
-
-        console.log(this.formData);
     }
 
     /**
