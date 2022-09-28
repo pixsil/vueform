@@ -103,7 +103,9 @@ data() {
                 name: null,
                 age: null,
             },
-            true, // <-----
+            {
+                sendJsonFormData: true, // <-----
+            }
         )
     }
 }
