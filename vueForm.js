@@ -1,4 +1,5 @@
-// version 31 Added console warn by no valid url 
+// version 32 Added setting parameter to init
+// version 31 Added console warn by no valid url
 // version 30 Added nice throttle error
 // version 29 Reject was commented out, this is needed for a catch on the vueForm object
 // version 28 Made global setting object
@@ -12,10 +13,15 @@ window.VueForm = class VueForm {
      *
      * @param formData
      */
-    constructor(formData = {}) {
+    constructor(formData = {}, settings = {}) {
         this.sendJsonFormData = false;
+        // set global settings
         if (window.vueFormSettings?.sendJsonFormData) {
             this.sendJsonFormData = window.vueFormSettings.sendJsonFormData;
+        }
+        // set plugin settings
+        if (settings.sendJsonFormData) {
+            this.sendJsonFormData = settings.sendJsonFormData;
         }
         this.doNotSendEnptyValues = true;
         this.originalJsonData = JSON.stringify(formData);
