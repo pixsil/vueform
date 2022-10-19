@@ -1,3 +1,4 @@
+// version 33 Added redirect = false option
 // version 32 Added setting parameter to init
 // version 31 Added console warn by no valid url
 // version 30 Added nice throttle error
@@ -346,6 +347,10 @@ window.VueForm = class VueForm {
         }
         // check for null
         if (redirect === null) {
+            return;
+        }
+        // check for false
+        if (redirect === false) {
             return;
         }
 
