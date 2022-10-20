@@ -1,3 +1,4 @@
+// version 34 Performance update don't, load back new data by redirect
 // version 33.1 Changed function name
 // version 33 Added redirect = false option
 // version 32 Added setting parameter to init
@@ -362,6 +363,8 @@ window.VueForm = class VueForm {
         }
 
         window.location.href = redirect;
+
+        return true;
     }
 
     /**
@@ -540,12 +543,15 @@ window.VueForm = class VueForm {
                     this.removeBusyUrl(requestType +':'+ url)
 
                     // check for redirect
-                    this.checkForRedirect(response.data.redirect)
+                    if (!this.checkForRedirect(response.data.redirect)) {
 
-                    // fill the form data
-                    this.updateDataForSubmit(response.data.data);
+                        // if no redirect go on
 
-                    resolve(response.data);
+                        // fill the form data
+                        this.updateDataAndOriginalData(response.data.data);
+
+                        resolve(response.data);
+                    }
                 })
                 .catch(error => {
                     this.onFail(error.response.data, error.response.status);
@@ -589,12 +595,15 @@ window.VueForm = class VueForm {
                     this.removeBusyUrl(requestType +':'+ url)
 
                     // check for redirect
-                    this.checkForRedirect(response.data.redirect)
+                    if (!this.checkForRedirect(response.data.redirect)) {
 
-                    // fill the form data
-                    this.updateDataForSubmit(response.data.data);
+                        // if no redirect go on
 
-                    resolve(response.data);
+                        // fill the form data
+                        this.updateDataAndOriginalData(response.data.data);
+
+                        resolve(response.data);
+                    }
                 })
                 .catch(error => {
                     this.onFail(error.response.data, error.response.status);
