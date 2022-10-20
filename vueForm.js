@@ -1,3 +1,4 @@
+// version 33.1 Changed function name
 // version 33 Added redirect = false option
 // version 32 Added setting parameter to init
 // version 31 Added console warn by no valid url
@@ -319,9 +320,10 @@ window.VueForm = class VueForm {
 
     /**
      * This function is special for submit
-     * Doenst do anything if there is no data set
+     * Doen not do anything if there is no data set
+     * Does not change structure only data
      */
-    updateDataForSubmit(data) {
+    updateDataAndOriginalData(data) {
 
         // check for undefined
         if (typeof data === 'undefined') {
@@ -337,6 +339,11 @@ window.VueForm = class VueForm {
 
         // set also the original
         this.setCurrentDataAsOriginal();
+    }
+
+    // deprecated
+    updateDataForSubmit(data) {
+        this.updateDataAndOriginalData(data)
     }
 
     checkForRedirect(redirect) {
@@ -611,10 +618,10 @@ window.VueForm = class VueForm {
         // by validation errors
         if (status === 422) {
             this.vueErrors.recordGlobalMessage(data.message);
-        // by throttle error
+            // by throttle error
         } else if (status === 429) {
             this.vueErrors.recordGlobalMessage(data.message);
-        // all other errors, like server errors
+            // all other errors, like server errors
         } else {
             this.vueErrors.recordGlobalMessage('An error occurred.');
             this.vueErrors.recordErrorMessage(data.message);
