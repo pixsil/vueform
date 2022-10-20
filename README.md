@@ -269,7 +269,7 @@ On all the the other http errors codes the message is filled with a default erro
 You can use the global message if you have an error that is not field related. In Laravel you can fill the error like this:
 
 ```php
-abort(422, 'Je kan niet meer afroepen dan er beschikbaar is.');
+abort(422, 'You cannot add more items.');
 ```
 
 The default 422 response code is "The given data was invalid.". I only like to show custom messages. A good approche to accomplish this is to only show the message if it is not filled with the default message. Something like this:
