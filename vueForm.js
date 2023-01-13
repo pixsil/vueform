@@ -1,3 +1,4 @@
+// version 35 Fixed error response for faulty url
 // version 34 Performance update don't, load back new data by redirect
 // version 33.1 Changed function name
 // version 33 Added redirect = false option
@@ -554,7 +555,9 @@ window.VueForm = class VueForm {
                     }
                 })
                 .catch(error => {
-                    this.onFail(error.response.data, error.response.status);
+                    if (error?.response) {
+                        this.onFail(error.response.data, error.response.status);
+                    }
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
 
@@ -606,7 +609,9 @@ window.VueForm = class VueForm {
                     }
                 })
                 .catch(error => {
-                    this.onFail(error.response.data, error.response.status);
+                    if (error?.response) {
+                        this.onFail(error.response.data, error.response.status);
+                    }
                     // delete the element from the busy array
                     this.removeBusyUrl(requestType +':'+ url)
 
