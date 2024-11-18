@@ -27,7 +27,7 @@ For a quick install, run this from your project root:
 mkdir -p resources/js/tools/vue-form
 wget -O resources/js/tools/vue-form/vue-form.js https://raw.githubusercontent.com/pixsil/vueform/main/vueForm.js
 wget -O resources/js/tools/vue-form/vue-error.js https://raw.githubusercontent.com/pixsil/vueform/main/vueError.js
-wget -O resources/js/tools/vue-form/vue-form-inertia.js https://raw.githubusercontent.com/pixsil/vueform/main/vueFormIntertia.js
+wget -O resources/js/tools/vue-form/vue-form-inertia.js https://raw.githubusercontent.com/pixsil/vueform/main/vueFormInertia.js
 ```
 
 Add this to your app.js
