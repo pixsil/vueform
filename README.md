@@ -312,3 +312,11 @@ This class work seamlessly with the validation component. Its small and works ou
 ## Example
 
 Check the example folder for a Vue component example
+
+# The Vue form for Intertia
+
+Made the package also as an extention to Intertia. Import in your component and good to go.
+
+```
+import {useExtendedForm} from "@/tools/vue-form/vue-form-4.js";
+```
