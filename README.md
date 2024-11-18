@@ -320,3 +320,11 @@ Made the package also as an extention to Intertia. Import in your component and 
 ```
 import {useExtendedForm} from "@/tools/vue-form/vue-form-4.js";
 ```
+
+```
+form: useExtendedForm({
+    save_full_order: false,
+    pdf_image_front: null,
+    some_field: null,
+}),
+```
