@@ -27,6 +27,7 @@ For a quick install, run this from your project root:
 mkdir -p resources/js/tools/vue-form
 wget -O resources/js/tools/vue-form/vue-form.js https://raw.githubusercontent.com/pixsil/vueform/main/vueForm.js
 wget -O resources/js/tools/vue-form/vue-error.js https://raw.githubusercontent.com/pixsil/vueform/main/vueError.js
+wget -O resources/js/tools/vue-form/vue-form-inertia.js https://raw.githubusercontent.com/pixsil/vueform/main/vueFormIntertia.js
 ```
 
 Add this to your app.js
@@ -318,13 +319,11 @@ Check the example folder for a Vue component example
 Made the package also as an extention to Intertia. Import in your component and good to go.
 
 ```
-import {useExtendedForm} from "@/tools/vue-form/vue-form-4.js";
+import {useExtendedForm} from "@/tools/vue-form/vue-form-inertia.js";
 ```
 
 ```
 form: useExtendedForm({
-    save_full_order: false,
-    pdf_image_front: null,
     some_field: null,
 }),
 ```
