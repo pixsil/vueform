@@ -1,0 +1,25 @@
+{
+    "name": "pix-vueform",
+    "version": "1.0.0",
+    "description": "VueForm Package",
+    "main": "src/index.js",
+    "scripts": {
+        "build": "webpack",
+        "test": "jest"
+    },
+    "keywords": [
+        "laravel",
+        "vue",
+        "components"
+    ],
+    "author": "Luke Braakman",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pixsil/vueform.git"
+    },
+    "bugs": {
+        "url": "https://github.com/pixsil/vueform/issues"
+    },
+    "homepage": "https://github.com/pixsil/vueform#readme"
+}
